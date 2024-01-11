@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" type="image/x-icon" href="teddy2-removebg-preview.png" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    />
+    <title>Do you want to go out with me</title>
+    <style>
+      .back-image {
+        background-image: url("back.jpeg");
+        height: 100vh;
+        width: 100vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column; /* Added to stack teddy-bear and h1 vertically */
+        justify-content: center; /* Center items vertically */
+        background-size: cover;
+      }
+
+      .teddy-bear {
+        background-image: url("teddy.webp");
+        height: 60%; /* Adjust as needed */
+        width: 30vw;
+        background-size: cover;
+      }
+
+      h1 {
+        margin: 0; /* Remove top margin */
+        color: rgb(16, 0, 73);
+      }
+
+      .buttons {
+        display: flex;
+        justify-content: center; /* Center buttons horizontally */
+        gap: 20px; /* Space between buttons */
+        flex-wrap: nowrap; /* Add this line */
+        margin-top: 10px;
+      }
+
+      .button {
+        background-color: rgba(255, 255, 255, 0.7);
+        color: black;
+        border-radius: 30%;
+        cursor: pointer;
+        padding: 15px 25px; /* Increase button size */
+        font-size: 15px; /* Increase font size */
+        border-color: rgb(56, 57, 58);
+      }
+
+      #noButton {
+        position: absolute;
+        transition: all 0.5s ease-in-out; /* transition effect for all properties over 0.5 seconds */
+      }
+
+      #yesButton {
+        margin-left: -300px;
+      }
+
+      #noButton {
+        margin-right: -300px;
+      }
+
+      dateMenu {
+        display: none; /* Initially hidden */
+      }
+
+      #dateMenu {
+        display: none; /* Initially hidden */
+      }
+
+      #datePicker {
+        margin-top: 10px;
+        margin-left: 23%;
+        padding: 15px, 20px;
+        cursor: pointer;
+      }
+
+      .subimit-lets {
+        display: none;
+      }
+
+      .subimit-lets button {
+        padding: 15px 20px; /* Increase padding for a larger button */
+        font-size: 15px; /* Increase font size for larger text */
+        background-color: rgb(255, 107, 235);
+        color: white;
+        margin-top: 10px;
+        border-radius: 80%;
+        border-style: none;
+      }
+
+      .subimit-lets button:hover {
+        background-color: rgb(107, 0, 93);
+        cursor: pointer;
+      }
+
+      .subimit-lets button::after {
+        background-color: rgb(0, 0, 0);
+      }
+
+      /* Media Queries for Responsive Design */
+      @media (max-width: 768px) {
+        .teddy-bear {
+          height: 40%;
+          width: 80vw;
+        }
+
+        .button {
+          padding: 10px 15px;
+          font-size: 12px;
+        }
+
+        #datePicker {
+          margin-top: 10px;
+          margin-left: 20px;
+        }
+
+        .subimit-lets button {
+          padding: 10px 15px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="back-image">
+      <div class="teddy2"></div>
+      <div class="teddy-bear"></div>
+      <h1 id="question">
+        Do you want to go out with me?
+        <div class="buttons">
+          <button class="button" id="yesButton" onclick="showDateMenu()">
+            Yes
+          </button>
+          <button class="button" id="noButton">No</button>
+        </div>
+      </h1>
+      <div id="dateMenu">
+        <h1>So when are we going out?</h1>
+        <input type="datetime-local" id="datePicker" />
+      </div>
+      <div class="subimit-lets" onclick="showSuccessNotification()">
+        <button class="btn btn-success">Yayyy Let's Go</button>
+      </div>
+      <div
+        class="alert alert-success"
+        role="alert"
+        id="successAlert"
+        style="display: none;"
+      >
+        Congratulations!
+      </div>
+    </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-d6EhqQ/HKbQYy1C8Ax5Tc3S84OvIf0Iz1iEqlkozvgZifNfgT1b2TJ25G6P6KaG6"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOAVJngvzdZzFE1bdwwdSMWkGP5Gt9SRB"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const noButton = document.getElementById("noButton");
+      noButton.addEventListener("mouseover", function () {
+        // Generate random position
+        const randomLeft = Math.floor(Math.random() * window.innerWidth);
+        const randomTop = Math.floor(Math.random() * window.innerHeight);
+
+        // Apply random position
+        noButton.style.left = `${randomLeft}px`;
+        noButton.style.top = `${randomTop}px`;
+      });
+
+      function showDateMenu() {
+        // Hide question and buttons
+        document.getElementById("question").style.display = "none";
+
+        // Show date menu
+        document.getElementById("dateMenu").style.display = "block";
+
+        // Display the "Let's Go" button
+        document.querySelector(".subimit-lets").style.display = "block";
+
+        // Replace teddy-bear with teddy2
+        const teddyBear = document.querySelector(".teddy-bear");
+        const teddy2 = document.querySelector(".teddy2");
+
+        // Set teddy2 styles to match teddy-bear
+        teddy2.style.backgroundImage = 'url("teddy2.webp")'; // Replace with the correct image URL for teddy2
+        teddy2.style.height = teddyBear.offsetHeight + "px";
+        teddy2.style.width = teddyBear.offsetWidth + "px";
+        teddy2.style.backgroundSize = "cover";
+
+        // Hide teddy-bear and show teddy2
+        teddyBear.style.display = "none";
+        teddy2.style.display = "block";
+      }
+
+      function showSuccessNotification() {
+        // Show Bootstrap success alert
+        document.getElementById("successAlert").style.display = "block";
+      }
+    </script>
+  </body>
+</html>
